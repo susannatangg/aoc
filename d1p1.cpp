@@ -15,11 +15,11 @@ long long stringToLL(string s){
     return l;
 }
 
-int main(){
+void maxCalories(){
     string currNum;
     long long currSum=0;
     long long currMax=-1;
-    ifstream input("d1p1input.txt");
+    ifstream input("d1input.txt");
     while(getline(input, currNum)){
         if(currNum==""){
             currMax=max(currMax,currSum);
@@ -29,4 +29,25 @@ int main(){
         currSum+=stringToLL(currNum);
     }
     cout<<currMax<<endl;
+}
+
+void topThreeMaxCalories(){
+    string currNum;
+    long long currSum=0;
+    vector<long long> v;
+    ifstream input("d1input.txt");
+    while(getline(input, currNum)){
+        if(currNum==""){
+            v.push_back(currSum);
+            currSum=0;
+            continue;
+        }
+        currSum+=stringToLL(currNum);
+    }
+    sort(v.begin(), v.end(), greater<int>());
+    cout<<v[0]+v[1]+v[2]<<endl;
+}
+
+int main(){
+    topThreeMaxCalories();
 }
