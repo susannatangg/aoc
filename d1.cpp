@@ -49,5 +49,6 @@ void topThreeMaxCalories(){
 }
 
 int main(){
+    maxCalories();
     topThreeMaxCalories();
 }
