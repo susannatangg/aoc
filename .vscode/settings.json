@@ -4,6 +4,8 @@
         "string": "cpp",
         "unordered_set": "cpp",
         "iostream": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "cstring": "cpp",
+        "queue": "cpp"
     }
 }
