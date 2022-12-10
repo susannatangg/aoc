@@ -65,9 +65,58 @@ void part1(){
 }
 
 void part2(){
-    
+    string line;
+    unordered_set <string> us;
+    us.insert("0,0");
+    int pos[10][2];
+    for (int i=0; i<10; i++){
+        pos[i][0]=0;
+        pos[i][1]=0;
+    }
+    char dir;
+    int move;
+    ifstream input("d9input.txt");
+    while(getline(input, line)){
+        dir=line[0];
+        move=toInt(line.substr(2));
+        for (int i=0; i<move; i++){
+            if(dir=='R')pos[0][1]++;
+            if(dir=='L')pos[0][1]--;
+            if(dir=='U')pos[0][0]--;
+            if(dir=='D')pos[0][0]++;
+            for (int j=1; j<10; j++){
+                if(!inRange(pos[j][0],pos[j][1],pos[j-1][0],pos[j-1][1])){
+                    if(pos[j-1][0]==pos[j][0]){
+                        if(pos[j][1]<pos[j-1][1])pos[j][1]++;
+                        else pos[j][1]--;
+                    }else if(pos[j-1][1]==pos[j][1]){
+                        if(pos[j][0]<pos[j-1][0])pos[j][0]++;
+                        else pos[j][0]--;
+                    }else{
+                        if(inRange(pos[j][0]-1,pos[j][1]-1,pos[j-1][0],pos[j-1][1])){
+                            pos[j][0]--; pos[j][1]--;
+                        }else if(inRange(pos[j][0]-1,pos[j][1]+1,pos[j-1][0],pos[j-1][1])){
+                            pos[j][0]--; pos[j][1]++;
+                        }else if(inRange(pos[j][0]+1,pos[j][1]+1,pos[j-1][0],pos[j-1][1])){
+                            pos[j][0]++; pos[j][1]++;
+                        }else if(inRange(pos[j][0]+1,pos[j][1]-1,pos[j-1][0],pos[j-1][1])){
+                            pos[j][0]++; pos[j][1]--;
+                        }
+                    }
+                }
+                if(j==9){
+                    // cout<<pos[j][0]<<" "<<pos[j][1]<<endl;
+                    string tjs(1,pos[j][1]);
+                    string tis(1,pos[j][0]);
+                    us.insert(tis+","+tjs);
+                }
+            }
+            // cout<<i+1<<" hi:"<<hi<<",hj:"<<hj<<",ti:"<<ti<<",tj:"<<tj<<endl;
+        }
+    }
+    cout<<us.size()-1<<endl;
 }
 
 int main(){
-    part1();
+    part2();
 }
